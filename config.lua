@@ -11,13 +11,15 @@ ipWhitelist={"127.0.0.1"}
 ipBlocklist={"1.0.0.1"}
 CCDeny="off"
 CCrate="100/60"
+geoBlockEnabled="on"
+geoWhitelist={"127.0.0.1","192.168.0.0/16","10.0.0.0/8","172.16.0.0/12"}
 html=[[
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>网站防火墙</title>
 <style>
 p {
-	line-height:20px;
+    line-height:20px;
 }
 ul{ list-style-type:none;}
 li{ list-style-type:none;}
@@ -38,6 +40,35 @@ li{ list-style-type:none;}
 <ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1）检查提交内容；</li>
 <li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2）如网站托管，请联系空间提供商；</li>
 <li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3）普通网站访客，请联系网站管理员；</li></ul>
+    </div>
+  </div>
+</div>
+</body></html>
+]]
+geoBlockHtml=[[
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>访问受限</title>
+<style>
+p {
+    line-height:20px;
+}
+ul{ list-style-type:none;}
+li{ list-style-type:none;}
+</style>
+</head>
+
+<body style=" padding:0; margin:0; font:14px/1.5 Microsoft Yahei, 宋体,sans-serif; color:#555;">
+
+ <div style="margin: 0 auto; width:1000px; padding-top:70px; overflow:hidden;">
+  
+  
+  <div style="width:600px; float:left;">
+    <div style=" height:40px; line-height:40px; color:#fff; font-size:16px; overflow:hidden; background:#d9534f; padding-left:20px;">地理位置访问限制 </div>
+    <div style="border:1px dashed #cdcece; border-top:none; font-size:14px; background:#fff; color:#555; line-height:24px; height:220px; padding:20px 20px 0 20px; overflow-y:auto;background:#f3f7f9;">
+      <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600; color:#fc4f03;">抱歉，本网站仅限中国大陆地区访问！</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Access from your region is not allowed.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;">如有疑问请联系网站管理员。</p>
     </div>
   </div>
 </div>

@@ -14,6 +14,9 @@ PathInfoFix = optionIsOn(PathInfoFix)
 attacklog = optionIsOn(attacklog)
 CCDeny = optionIsOn(CCDeny)
 Redirect=optionIsOn(Redirect)
+geoBlockEnabled = optionIsOn(geoBlockEnabled)
+
+local ip_geo = require("waf.ip_geo")
 function getClientIp()
         IP  = ngx.var.remote_addr 
         if IP == nil then
@@ -92,7 +95,7 @@ function fileExtCheck(ext)
     if ext then
         for rule in pairs(items) do
             if ngx.re.match(ext,rule,"isjo") then
-	        log('POST',ngx.var.request_uri,"-","file attack with ext "..ext)
+            log('POST',ngx.var.request_uri,"-","file attack with ext "..ext)
             say_html()
             end
         end
@@ -242,4 +245,47 @@ function blockip()
          end
      end
          return false
+end
+
+function geoblock()
+    if geoBlockEnabled then
+        local client_ip = getClientIp()
+        
+        if client_ip == "unknown" then
+            return false
+        end
+        
+        if ip_geo.is_private_ip(client_ip) then
+            return false
+        end
+        
+        if geoWhitelist and #geoWhitelist > 0 then
+            if ip_geo.match_ip_in_list(client_ip, geoWhitelist) then
+                return false
+            end
+        end
+        
+        if not ip_geo.is_china_ip(client_ip) then
+            if attacklog then
+                local time = ngx.localtime()
+                local servername = ngx.var.server_name
+                local uri = ngx.var.request_uri
+                local method = ngx.req.get_method()
+                local line = "[GEO-BLOCK] "..client_ip.." ["..time.."] \""..method.." "..servername..uri.."\"\n"
+                local filename = logpath..'/'..servername.."_"..ngx.today().."_geo.log"
+                write(filename, line)
+            end
+            
+            if Redirect then
+                ngx.header.content_type = "text/html"
+                ngx.status = ngx.HTTP_FORBIDDEN
+                ngx.say(geoBlockHtml)
+                ngx.exit(ngx.status)
+            end
+            
+            return true
+        end
+    end
+    
+    return false
 end
