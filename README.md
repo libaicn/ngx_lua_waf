@@ -7,14 +7,14 @@ ngx_lua_waf是我刚入职趣游时候开发的一个基于ngx_lua的web应用�
 现在开源出来，遵从MIT许可协议。其中包含我们的过滤规则。如果大家有什么建议和想fa，欢迎和我一起完善。
 
 ###用途：
-    	
-	防止sql注入，本地包含，部分溢出，fuzzing测试，xss,SSRF等web攻击
-	防止svn/备份之类文件泄漏
-	防止ApacheBench之类压力测试工具的攻击
-	屏蔽常见的扫描黑客工具，扫描器
-	屏蔽异常的网络请求
-	屏蔽图片附件类目录php执行权限
-	防止webshell上传
+        
+    防止sql注入，本地包含，部分溢出，fuzzing测试，xss,SSRF等web攻击
+    防止svn/备份之类文件泄漏
+    防止ApacheBench之类压力测试工具的攻击
+    屏蔽常见的扫描黑客工具，扫描器
+    屏蔽异常的网络请求
+    屏蔽图片附件类目录php执行权限
+    防止webshell上传
 
 ###推荐安装:
 
@@ -31,10 +31,10 @@ nginx安装路径假设为:/usr/local/nginx/conf/
 
 在nginx.conf的http段添加
 
-		lua_package_path "/usr/local/nginx/conf/waf/?.lua";
+        lua_package_path "/usr/local/nginx/conf/waf/?.lua";
         lua_shared_dict limit 10m;
         init_by_lua_file  /usr/local/nginx/conf/waf/init.lua; 
-    	access_by_lua_file /usr/local/nginx/conf/waf/waf.lua;
+        access_by_lua_file /usr/local/nginx/conf/waf/waf.lua;
 
 配置config.lua里的waf规则目录(一般在waf/conf/目录下)
 
@@ -47,7 +47,7 @@ nginx安装路径假设为:/usr/local/nginx/conf/
 
 ###配置文件详细说明：
 
-    	RulePath = "/usr/local/nginx/conf/waf/wafconf/"
+        RulePath = "/usr/local/nginx/conf/waf/wafconf/"
         --规则存放目录
         attacklog = "off"
         --是否开启攻击信息记录，需要配置logdir
@@ -104,18 +104,18 @@ nginx安装路径假设为:/usr/local/nginx/conf/
 
 ###一些说明：
 
-	过滤规则在wafconf下，可根据需求自行调整，每条规则需换行,或者用|分割
-	
-		args里面的规则get参数进行过滤的
-		url是只在get请求url过滤的规则		
-		post是只在post请求过滤的规则		
-		whitelist是白名单，里面的url匹配到不做过滤		
-		user-agent是对user-agent的过滤规则
-	
+    过滤规则在wafconf下，可根据需求自行调整，每条规则需换行,或者用|分割
+    
+        args里面的规则get参数进行过滤的
+        url是只在get请求url过滤的规则        
+        post是只在post请求过滤的规则        
+        whitelist是白名单，里面的url匹配到不做过滤        
+        user-agent是对user-agent的过滤规则
+    
 
-	默认开启了get和post过滤，需要开启cookie过滤的，编辑waf.lua取消部分--注释即可
-	
-	日志文件名称格式如下:虚拟主机名_sec.log
+    默认开启了get和post过滤，需要开启cookie过滤的，编辑waf.lua取消部分--注释即可
+    
+    日志文件名称格式如下:虚拟主机名_sec.log
 
 
 ## Copyright
@@ -134,5 +134,5 @@ nginx安装路径假设为:/usr/local/nginx/conf/
     <td>License</td><td>MIT License</td>
   </tr>
 </table>
-	
+    
 感谢ngx_lua模块的开发者[@agentzh](https://github.com/agentzh/),春哥是我所接触过开源精神最好的人
